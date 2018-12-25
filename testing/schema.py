@@ -1,18 +1,26 @@
 from graphene_django import DjangoObjectType
 import graphene
-from testing.models import Utente
+from graphene_django.filter import DjangoFilterConnectionField
+
+from testing.models import Utente,Post
+
+'''
+https://docs.graphene-python.org/en/latest/types/mutations/
+https://docs.graphene-python.org/projects/django/en/latest/filtering/
+'''
 
 class User(DjangoObjectType):
+
     class Meta:
-        model =Utente
+        model = Utente
+        filter_fields = {'id','nome'}
+        interfaces = (graphene.relay.Node,)
+
 
 class Query(graphene.ObjectType):
 
-    users = graphene.List(User)
+    users =         graphene.relay.Node.Field(User)
+    all_users =     DjangoFilterConnectionField(User)
 
-    print(users)
-
-    def resolve_users(self, info):
-        return Utente.objects.all()
 
 schema = graphene.Schema(query=Query)

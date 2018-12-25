@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
 <head>
     <meta charset="UTF-8">
     <title>Test GRAPH QL</title>
@@ -7,25 +7,28 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.1/underscore-min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"></script>
     <script>
-    var Query = `query { users {nome,cognome,foto}}`
 
+        var Query = `query { users {nome,cognome,foto}}`
 
-    axios({
-      url: 'http://127.0.0.1:8000/graphql',
-      method: 'post',
-      data: {
-        query: Query
-      }
-    }).then((result) => {
+        axios({
+            url: 'http://127.0.0.1:8000/graphql',
+            method: 'post',
+            data: {
+                query: Query
+            }
+        }).then((result) => {
 
-          _.map(result.data,function(val){
-              console.log(val)
-          })
-    });
+            _.map(result.data, function (val) {
+                console.log(val)
+            })
+        });
     </script>
 
     <style>
-        #append{ width: 100%;background-color: #e8faff;}
+        #append {
+            width: 100%;
+            background-color: #e8faff;
+        }
     </style>
 </head>
 <body>
