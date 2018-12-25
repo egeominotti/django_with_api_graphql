@@ -16,6 +16,17 @@ class User(DjangoObjectType):
         filter_fields = {'id','nome'}
         interfaces = (graphene.relay.Node,)
 
+class CreatePerson(graphene.Mutation):
+    class Arguments:
+        name = graphene.String()
+
+    ok = graphene.Boolean()
+    person = graphene.Field(lambda: Person)
+
+    def mutate(self, info, name):
+        person = Person(name=name)
+        ok = True
+        return CreatePerson(person=person, ok=ok)
 
 class Query(graphene.ObjectType):
 
